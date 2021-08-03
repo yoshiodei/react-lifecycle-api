@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
+import React,{useState,useEffect} from 'react';
 
-class UsersClass extends Component {
-    constructor(){
-        super();
 
-        this.state = {users: []}
+const UsersFunction = () => {
+    const [users, setUsers] = useState([]);
 
-    }
-
-    componentDidMount(){
+    useEffect(()=>{
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
         .then(users =>{ 
             console.log("users", users);
-            this.setState({users: users});
+            setUsers(users);
         })
         .catch(err => err.message)
     }
+  , []);
 
-    render() {
-        return (
-            <>
-            <h1 style={{textAlign: "center"}}>Class Component</h1>
-             {this.state.users.map(user =>{
+    return (
+           <>
+            <h1 style={{textAlign: "center"}}>Function Component</h1>
+             {users.map(user =>{
                  return(
                     <div className="card">
                         <p>Name: {user.name}</p>
@@ -33,9 +29,8 @@ class UsersClass extends Component {
              })
 
              }   
-            </>
-        );
-    }
+            </> 
+    );
 }
 
-export default UsersClass;
+export default UsersFunction;
